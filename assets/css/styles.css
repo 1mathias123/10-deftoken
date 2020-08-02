@@ -1,0 +1,77 @@
+btn btn-primary btnbuy {
+}
+
+.btn.btn-primary.btnbuy {
+  color: #000000;
+  background-color: transparent;
+  border-bottom: solid 2px;
+  border-bottom-color: #42ff00;
+  border-left: solid 0px;
+  border-right: solid 0px;
+  border-radius: 0;
+  border-top: solid 0px;
+  /*border-color: #f50606f;*/
+  border-color: inherit #ff0000ff;
+  /*border-color: initial;*/
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+}
+
+.buyinput active hover {
+  border-bottom-color: #fffff;
+  border-bottom: solid 3px;
+  border-right: 0px;
+  border-bottom-color: #ef0707ff;
+  border-left: 0px;
+  border-top: 0px;
+  color: #fffff;
+  border-bottom-color: #ebff00ff;
+  background-color: transparent;
+  color: #ff0000f;
+}
+
+buyinputborder {
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  border-bottom: 3px;
+  border-bottom-color: #faff00;
+}
+
+.buyinputborder {
+}
+
+.buyinputborder {
+}
+
+.therealborder hover {
+  background-color: transparent;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  text-align: center;
+  border-bottom: solid 3px;
+  border-bottom-color: #faff00;
+}
+
+.therealborder hover {
+  background-color: transparent;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  text-align: center;
+  border-bottom: solid 3px;
+  border-bottom-color: #faff00;
+}
+
+.therealborder {
+  background-color: transparent;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  text-align: center;
+  border-bottom: solid 3px;
+  border-bottom-color: #faff00;
+}
+
