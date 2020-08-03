@@ -302,6 +302,8 @@ started=1;
 	}
 ];
         
+		 MyContract = web3.eth.contract(abi).at(contractaddress);
+		
           accountInterval2 = setInterval(function () {
   
   toinvest = parseFloat(document.getElementsByName('ETH')[0].value*1000000000000000000);
