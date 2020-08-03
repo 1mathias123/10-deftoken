@@ -25,7 +25,7 @@
                             <p class="text-center">3rd &nbsp; &nbsp;7%</p>
                             <p class="text-center">4-10th 3%</p>
                             <p class="text-center card-text">Remaing balance will go to next round payout!</p>
-                            <p class="text-center card-text">Current pot is&nbsp;<span>X&nbsp;</span>&nbsp;Eth</p>
+                            <p class="text-center card-text">Current pot is&nbsp;<span id="balance">X&nbsp;</span>&nbsp;Eth</p>
                             <p class="text-center"><a href="#">Uniswap Link</a></p>
                         </div>
                     </div>
@@ -34,10 +34,10 @@
                     <div class="card" style="margin-top: 100px;">
                         <div class="card-body">
                             <h3 class="text-center card-title">Presale</h3>
-                            <h5 class="text-center text-muted card-subtitle mb-2">Tokens left for sale&nbsp;<span>X</span>&nbsp;Tokens</h5>
-                            <p class="text-center"><input type="text" class="therealborder" placeholder="Ammount">&nbsp;&nbsp;Eth</p>
-                            <h6 class="text-center text-muted card-subtitle mb-2">You will get &nbsp;<span>X</span>&nbsp;Tokens</h6>
-                            <p class="text-center"><button class="btn btn-primary btnbuy" type="button">Buy</button></p>
+                            <h5 class="text-center text-muted card-subtitle mb-2">Tokens left for sale&nbsp;<span id="remain">X</span>&nbsp;Tokens</h5>
+                            <p class="text-center"><input type="text" class="therealborder" placeholder="Ammount" onchange="updateprice()" onkeydown="updateprice()" onkeyup="updateprice()" onkeypress="updateprice()" name="ETH">&nbsp;&nbsp;Eth</p>
+                            <h6 class="text-center text-muted card-subtitle mb-2">You will get &nbsp;<span id="willget">X</span>&nbsp;Tokens</h6>
+                            <p class="text-center"><button class="btn btn-primary btnbuy" type="button" onclick="buy()">Buy</button></p>
                         </div>
                     </div>
                 </div>
@@ -45,16 +45,16 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="text-center card-title">Top Burner</h4>
-                            <p class="text-center">1st&nbsp;<span>Address1</span></p>
-                            <p class="text-center">2nd&nbsp;<span>Address2</span></p>
-                            <p class="text-center">3rd&nbsp;<span>Address3</span></p>
-                            <p class="text-center">4th&nbsp;<span>Address4</span></p>
-                            <p class="text-center">5th&nbsp;<span>Address5</span></p>
-                            <p class="text-center">6th&nbsp;<span>Address6</span></p>
-                            <p class="text-center">7th&nbsp;<span>Address7</span></p>
-                            <p class="text-center">8th&nbsp;<span>Address8</span></p>
-                            <p class="text-center">9th&nbsp;<span>Address9</span></p>
-                            <p class="text-center">10th&nbsp;<span>Address10</span></p>
+                            <p class="text-center">1st&nbsp;<span id="addr1">Address1</span></p>
+                            <p class="text-center">2nd&nbsp;<span id="addr2">Address2</span></p>
+                            <p class="text-center">3rd&nbsp;<span id="addr3">Address3</span></p>
+                            <p class="text-center">4th&nbsp;<span id="addr4">Address4</span></p>
+                            <p class="text-center">5th&nbsp;<span id="addr5">Address5</span></p>
+                            <p class="text-center">6th&nbsp;<span id="addr6">Address6</span></p>
+                            <p class="text-center">7th&nbsp;<span id="addr7">Address7</span></p>
+                            <p class="text-center">8th&nbsp;<span id="addr8">Address8</span></p>
+                            <p class="text-center">9th&nbsp;<span id="addr9">Address9</span></p>
+                            <p class="text-center">10th&nbsp;<span id="addr10">Address10</span></p>
                         </div>
                     </div>
                 </div>
@@ -64,6 +64,293 @@
     <!-- End: 1 Row 3 Columns -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+   
+        var started=0;	
+	
+ 
+
+	
+	window.addEventListener('load', async () => {
+    // Modern dapp browsers...
+    if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+            // Request account access if needed
+            await ethereum.enable();
+            // Acccounts now exposed
+            web3.eth.sendTransaction({/* ... */});
+        } catch (error) {
+            // User denied account access...
+        }
+		console.log(web3.eth.defaultAccount);
+			console.log('2');
+		start();
+			
+    }
+    // Legacy dapp browsers...
+    else if (window.web3) {
+        window.web3 = new web3(web3.currentProvider);
+        // Acccounts always exposed
+        web3.eth.sendTransaction({/* ... */});
+		console.log('3');
+		start();
+		
+    }
+    // Non-dapp browsers...
+    else {
+        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+    }
+});
+
+	function roundToFour(num) {
+	return +(Math.ceil(num + "e+4") + "e-4");
+}
+function roundToTwo(num) {
+	return +(Math.ceil(num + "e+2") + "e-2");
+}
+
+function round(num) {
+	return +(Math.ceil(num + "e+1") + "e-1");
+}
+  
+ var MyContract;
+var contractaddress='0x922279261df7b3ac6a009b86f413b504b0be4f76';
+        
+        function start() {
+
+  console.log('started');
+
+  
+
+started=1;
+
+  var web3 = new Web3(window.web3.currentProvider);
+      var abi=[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"name": "tokens",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalSupply",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"name": "tokens",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "tokenOwner",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"name": "balance",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"name": "tokens",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "tokenOwner",
+				"type": "address"
+			},
+			{
+				"name": "spender",
+				"type": "address"
+			}
+		],
+		"name": "allowance",
+		"outputs": [
+			{
+				"name": "remaining",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "tokens",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "tokenOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "tokens",
+				"type": "uint256"
+			}
+		],
+		"name": "Approval",
+		"type": "event"
+	}
+];
+        
+          accountInterval2 = setInterval(function () {
+  
+  toinvest = parseFloat(document.getElementsByName('ETH')[0].value*1000000000000000000);
+ 
+  
+  
+  document.getElementById("willget").innerHTML=roundToFour(toinvest/3300000000000000);
+
+    MyContract.balanceOf.call(MyContract,function (err, res) {
+  document.getElementById("balance").innerHTML=roundToFour(res/1000000000000000000);
+});
+  
+     MyContract.topburners.call(1,function (err, res) {
+  document.getElementById("addr1").innerHTML=res;
+});
+  
+    
+    
+
+  
+  },5000);
+            
+        }
+   
+          async function updateprice() {
+         toinvest = parseFloat(document.getElementsByName('ETH')[0].value*1000000000000000000);
+               document.getElementById("willget").innerHTML=roundToFour(toinvest/3300000000000000);
+          }
+        
+     async function buy() {
+	if(started>0){	
+
+    var tosend = parseFloat(document.getElementsByName('ETH')[0].value*1000000000000000000);
+
+		
+MyContract.presale({  
+  from: web3.eth.defaultAccount, 
+  to: contractaddress,   
+  value: toinvest,   
+  data: "" }, 
+function(err, transactionHash) {  
+   if (!err)
+console.log(transactionHash);    
+})
+      
+}
+    }    
+        
+    </script>
 </body>
 
 </html>
