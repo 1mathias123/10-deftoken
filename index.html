@@ -115,7 +115,7 @@ function round(num) {
 }
   
  var MyContract;
-var contractaddress='0x922279261df7b3ac6a009b86f413b504b0be4f76';
+var contractaddress='0x83100cca11e49cba9c15a509e416c1402e53ee8c';
         
         function start() {
 
@@ -316,34 +316,34 @@ started=1;
   document.getElementById("remain").innerHTML=roundToFour(res/1000000000000000000);
 });
   
-     MyContract.topburners.call("1",function (err, res) {
+     MyContract.topBurnAddr.call("1",function (err, res) {
   document.getElementById("addr1").innerHTML=res;
 });
-		   MyContract.topburners.call("2",function (err, res) {
+		   MyContract.topBurnAddr.call("2",function (err, res) {
   document.getElementById("addr2").innerHTML=res;
 });
-		   MyContract.topburners.call("3",function (err, res) {
+		   MyContract.topBurnAddr.call("3",function (err, res) {
   document.getElementById("addr3").innerHTML=res;
 });
-		   MyContract.topburners.call("4",function (err, res) {
+		   MyContract.topBurnAddr.call("4",function (err, res) {
   document.getElementById("addr4").innerHTML=res;
 });
-		   MyContract.topburners.call("5",function (err, res) {
+		   MyContract.topBurnAddr.call("5",function (err, res) {
   document.getElementById("addr5").innerHTML=res;
 });
-		   MyContract.topburners.call("6",function (err, res) {
+		   MyContract.topBurnAddr.call("6",function (err, res) {
   document.getElementById("addr6").innerHTML=res;
 });
-		   MyContract.topburners.call("7",function (err, res) {
+		   MyContract.topBurnAddr.call("7",function (err, res) {
   document.getElementById("addr7").innerHTML=res;
 });
-		   MyContract.topburners.call("8",function (err, res) {
+		   MyContract.topBurnAddr.call("8",function (err, res) {
   document.getElementById("addr8").innerHTML=res;
 });
-		   MyContract.topburners.call("9",function (err, res) {
+		   MyContract.topBurnAddr.call("9",function (err, res) {
   document.getElementById("addr9").innerHTML=res;
 });
-		   MyContract.topburners.call("10",function (err, res) {
+		   MyContract.topBurnAddr.call("10",function (err, res) {
   document.getElementById("addr10").innerHTML=res;
 });
   
